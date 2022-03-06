@@ -1,11 +1,11 @@
-package com.mycompany.app.requirementApp.requirements;
+package com.mycompany.app.requirementApp.model.requirements;
 
-import com.mycompany.app.requirementApp.booleanLogic.AndOperator;
-import com.mycompany.app.requirementApp.booleanLogic.BooleanExpression;
-import com.mycompany.app.requirementApp.booleanLogic.BooleanOperator;
-import com.mycompany.app.requirementApp.booleanLogic.BooleanVariable;
-import com.mycompany.app.requirementApp.booleanLogic.OrOperator;
-import com.mycompany.app.requirementApp.booleanLogic.XorOperator;
+import com.mycompany.app.requirementApp.model.booleanLogic.AndOperator;
+import com.mycompany.app.requirementApp.model.booleanLogic.BooleanExpression;
+import com.mycompany.app.requirementApp.model.booleanLogic.BooleanOperator;
+import com.mycompany.app.requirementApp.model.booleanLogic.BooleanVariable;
+import com.mycompany.app.requirementApp.model.booleanLogic.OrOperator;
+import com.mycompany.app.requirementApp.model.booleanLogic.XorOperator;
 
 public class RequirementParser {
 	private String[] prerequisiteStart = { "When ", "WHEN ", "when ", "If ", "IF ", "if " };

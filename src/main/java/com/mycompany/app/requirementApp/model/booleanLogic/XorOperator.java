@@ -1,13 +1,13 @@
-package com.mycompany.app.requirementApp.booleanLogic;
+package com.mycompany.app.requirementApp.model.booleanLogic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrOperator extends BooleanOperator {
+public class XorOperator extends BooleanOperator {
 
-	public OrOperator(BooleanExpression left, BooleanExpression right) {
+	public XorOperator(BooleanExpression left, BooleanExpression right) {
 		super(left, right);
-		operator = "OR";
+		operator = "XOR";
 	}
 
 	@Override
@@ -15,9 +15,6 @@ public class OrOperator extends BooleanOperator {
 		List<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		for (int i = 0; i < getLeftOperand().trueWhen().size(); i++) {
 			for (int j = 0; j < getRightOperand().trueWhen().size(); j++) {
-				ArrayList<String> newList = new ArrayList<String>();
-				newList.addAll(getLeftOperand().trueWhen().get(i));
-				newList.addAll(getRightOperand().trueWhen().get(j));
 
 				if (!(list.contains(getLeftOperand().trueWhen().get(i)))) {
 					list.add(getLeftOperand().trueWhen().get(i));
@@ -27,9 +24,6 @@ public class OrOperator extends BooleanOperator {
 					list.add(getRightOperand().trueWhen().get(j));
 				}
 
-				if (!(list.contains(newList))) {
-					list.add(newList);
-				}
 			}
 		}
 		return list;

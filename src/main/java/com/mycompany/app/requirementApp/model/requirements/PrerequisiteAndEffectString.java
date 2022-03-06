@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.requirements;
+package com.mycompany.app.requirementApp.model.requirements;
 
 public class PrerequisiteAndEffectString {
 	private String prerequisite;

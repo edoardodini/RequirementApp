@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.booleanLogic;
+package com.mycompany.app.requirementApp.model.booleanLogic;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +17,7 @@ public class XorOperatorTest {
 	BooleanVariable secondSentence = new BooleanVariable(secondSentenceText);
 	BooleanVariable thirdSentence = new BooleanVariable(thirdSentenceText);
 	BooleanVariable fourthSentence = new BooleanVariable(fourthSentenceText);
-	
+
 	@Test
 	public void testBasicCase() {
 		XorOperator booleanExpression = new XorOperator(firstSentence, secondSentence);
@@ -56,11 +56,11 @@ public class XorOperatorTest {
 				"((the light is ON XOR the alarm is ON) XOR (the water is CLOSED XOR the door is LOCKED))",
 				complexBooleanExpression.booleanExpressionText());
 		List<ArrayList<String>> expectedCombination = new ArrayList<ArrayList<String>>();
-		expectedCombination.addAll(new ArrayList<ArrayList<String>>(Arrays.asList(
-				new ArrayList<String>(Arrays.asList(firstSentenceText)),
-				new ArrayList<String>(Arrays.asList(thirdSentenceText)),
-				new ArrayList<String>(Arrays.asList(fourthSentenceText)),
-				new ArrayList<String>(Arrays.asList(secondSentenceText)))));
+		expectedCombination.addAll(
+				new ArrayList<ArrayList<String>>(Arrays.asList(new ArrayList<String>(Arrays.asList(firstSentenceText)),
+						new ArrayList<String>(Arrays.asList(thirdSentenceText)),
+						new ArrayList<String>(Arrays.asList(fourthSentenceText)),
+						new ArrayList<String>(Arrays.asList(secondSentenceText)))));
 		assertEquals("((A XOR B)XOR(C XOR D)) is true when only one of the variable is true", expectedCombination,
 				complexBooleanExpression.trueWhen());
 	}

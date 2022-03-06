@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.requirements;
+package com.mycompany.app.requirementApp.model.requirements;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;

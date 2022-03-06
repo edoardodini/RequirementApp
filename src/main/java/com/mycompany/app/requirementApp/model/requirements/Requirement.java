@@ -1,9 +1,9 @@
-package com.mycompany.app.requirementApp.requirements;
+package com.mycompany.app.requirementApp.model.requirements;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mycompany.app.requirementApp.booleanLogic.BooleanExpression;
+import com.mycompany.app.requirementApp.model.booleanLogic.BooleanExpression;
 
 public class Requirement {
 	private BooleanExpression prerequisite;

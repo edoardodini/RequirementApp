@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.requirements;
+package com.mycompany.app.requirementApp.model.requirements;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mycompany.app.requirementApp.booleanLogic.BooleanVariable;
-import com.mycompany.app.requirementApp.booleanLogic.OrOperator;
+import com.mycompany.app.requirementApp.model.booleanLogic.BooleanVariable;
+import com.mycompany.app.requirementApp.model.booleanLogic.OrOperator;
 
 public class RequirementTest {
 

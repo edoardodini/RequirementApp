@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.booleanLogic;
+package com.mycompany.app.requirementApp.model.booleanLogic;
 
 import static org.junit.Assert.assertEquals;
 

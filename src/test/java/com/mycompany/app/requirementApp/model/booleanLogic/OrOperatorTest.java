@@ -1,4 +1,4 @@
-package com.mycompany.app.requirementApp.booleanLogic;
+package com.mycompany.app.requirementApp.model.booleanLogic;
 
 import static org.junit.Assert.assertEquals;
 
@@ -78,9 +78,9 @@ public class OrOperatorTest {
 				new ArrayList<String>(Arrays.asList(firstSentenceText)),
 				new ArrayList<String>(Arrays.asList(thirdSentenceText)), oneThreeCombination,
 				new ArrayList<String>(Arrays.asList(fourthSentenceText)), oneFourCombination, threeFourCombination,
-				oneThreeFourCombination, new ArrayList<String>(Arrays.asList(secondSentenceText)),
-				twoThreeCombination, twoFourCombination, twoThreeFourCombination,
-				oneTwoCombination, oneTwoThreeCombination, oneTwoFourCombination, oneTwoThreeFourCombination)));
+				oneThreeFourCombination, new ArrayList<String>(Arrays.asList(secondSentenceText)), twoThreeCombination,
+				twoFourCombination, twoThreeFourCombination, oneTwoCombination, oneTwoThreeCombination,
+				oneTwoFourCombination, oneTwoThreeFourCombination)));
 		assertEquals("((A&&B)&&(C&&D)) is true when the boolean rules are respected", expectedCombination,
 				complexBooleanExpression.trueWhen());
 	}

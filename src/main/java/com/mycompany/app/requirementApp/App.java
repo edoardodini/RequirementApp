@@ -2,9 +2,9 @@ package com.mycompany.app.requirementApp;
 
 import java.util.List;
 
-import com.mycompany.app.requirementApp.requirements.NoGoodRequirementFormatException;
-import com.mycompany.app.requirementApp.requirements.Requirement;
-import com.mycompany.app.requirementApp.requirements.RequirementParser;
+import com.mycompany.app.requirementApp.model.requirements.NoGoodRequirementFormatException;
+import com.mycompany.app.requirementApp.model.requirements.Requirement;
+import com.mycompany.app.requirementApp.model.requirements.RequirementParser;
 
 public class App {
 	public static void main(String[] args) throws NoGoodRequirementFormatException {
