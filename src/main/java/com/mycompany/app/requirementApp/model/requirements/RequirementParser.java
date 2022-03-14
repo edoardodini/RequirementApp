@@ -26,19 +26,12 @@ public class RequirementParser {
 
 	private BooleanExpression booleanExpression(String possibleBooleanExpression)
 			throws NoGoodRequirementFormatException {
-		String workingPossibleBooleanExpression = possibleBooleanExpression;
-		workingPossibleBooleanExpression = workingPossibleBooleanExpression.trim();
+		String workingPossibleBooleanExpression = possibleBooleanExpression.trim();
 
-		boolean operatorPresent = false;
-		for (int i = 0; i < booleanOperator.length; i++) {
-			if (workingPossibleBooleanExpression.contains(booleanOperator[i])) {
-				operatorPresent = true;
-			}
-		}
-
-		if (operatorPresent == false) {
-			while(startAndEndWithParentheses(workingPossibleBooleanExpression)) {
-				workingPossibleBooleanExpression = removeFirstAndLastParenthesesAndTrim(workingPossibleBooleanExpression);
+		if (isPossibleBooleanVariable(workingPossibleBooleanExpression)) {
+			while (startAndEndWithParentheses(workingPossibleBooleanExpression)) {
+				workingPossibleBooleanExpression = removeFirstAndLastParenthesesAndTrim(
+						workingPossibleBooleanExpression);
 			}
 			return new BooleanVariable(workingPossibleBooleanExpression);
 		} else {
@@ -46,11 +39,66 @@ public class RequirementParser {
 		}
 	}
 
-	private BooleanOperator booleanOperator(String workingPossibleBooleanExpression)
-			throws NoGoodRequirementFormatException {
+	private boolean isPossibleBooleanVariable(String possibleBooleanVariable) throws NoGoodRequirementFormatException {
+		if (!correctParentheses(possibleBooleanVariable)) {
+			throw new NoGoodRequirementFormatException("no good parentheses format");
+		}
+		for (int i = 0; i < booleanOperator.length; i++) {
+			if (possibleBooleanVariable.contains(booleanOperator[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean externalParenthesesRemovable(String possibleBooleanExpression) {
+		String expression = possibleBooleanExpression.trim();
+		if (startAndEndWithParentheses(expression)) {
+			if (expression.length() > 2) {
+				if (correctParentheses(expression.substring(1, expression.length() - 1))) {
+					return true;
+				}
+				return false;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	private boolean correctParentheses(String possibleBooleanExpression) {
 		int openParentheses = 0;
 		int closedParentheses = 0;
-		boolean toTrim = true;
+		for (int i = 0; i < possibleBooleanExpression.length(); i++) {
+			if (possibleBooleanExpression.charAt(i) == '(') {
+				openParentheses++;
+			}
+			if (possibleBooleanExpression.charAt(i) == ')') {
+				closedParentheses++;
+			}
+			if (closedParentheses > openParentheses) {
+				return false;
+			}
+		}
+		if (closedParentheses == openParentheses) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private BooleanOperator booleanOperator(String workingPossibleBooleanExpression)
+			throws NoGoodRequirementFormatException {
+		workingPossibleBooleanExpression.trim();
+		if (!correctParentheses(workingPossibleBooleanExpression)) {
+			throw new NoGoodRequirementFormatException("no good parentheses format");
+		}
+		while (externalParenthesesRemovable(workingPossibleBooleanExpression)) {
+			workingPossibleBooleanExpression = removeFirstAndLastParenthesesAndTrim(workingPossibleBooleanExpression);
+		}
+		int openParentheses = 0;
+		int closedParentheses = 0;
 		for (int i = 0; i < workingPossibleBooleanExpression.length(); i++) {
 			if (workingPossibleBooleanExpression.charAt(i) == '(') {
 				openParentheses++;
@@ -58,38 +106,28 @@ public class RequirementParser {
 			if (workingPossibleBooleanExpression.charAt(i) == ')') {
 				closedParentheses++;
 			}
-			if (closedParentheses > openParentheses) {
-				throw new NoGoodRequirementFormatException("no good parentheses format");
-			}
-			if ((closedParentheses == openParentheses) && i < workingPossibleBooleanExpression.length() - 1 && i > 0) {
-				toTrim = false;
-			}
-		}
-
-		if (toTrim) {
-			workingPossibleBooleanExpression = removeFirstAndLastParenthesesAndTrim(workingPossibleBooleanExpression);
-		}
-		int secondRunOpen = 0;
-		int secondRunClosed = 0;
-		for (int i = 0; i < workingPossibleBooleanExpression.length(); i++) {
-			if (workingPossibleBooleanExpression.charAt(i) == '(') {
-				secondRunOpen++;
-			}
-			if (workingPossibleBooleanExpression.charAt(i) == ')') {
-				secondRunClosed++;
-			}
-			if (secondRunClosed == secondRunOpen) {
-				if (workingPossibleBooleanExpression.substring(i).startsWith(" AND ")) {
-					return new AndOperator(booleanExpression(workingPossibleBooleanExpression.substring(0, i)),
-							booleanExpression(workingPossibleBooleanExpression.substring(i + 5)));
-				}
-				if (workingPossibleBooleanExpression.substring(i).startsWith(" OR ")) {
-					return new OrOperator(booleanExpression(workingPossibleBooleanExpression.substring(0, i)),
-							booleanExpression(workingPossibleBooleanExpression.substring(i + 4)));
-				}
-				if (workingPossibleBooleanExpression.substring(i).startsWith(" XOR ")) {
-					return new XorOperator(booleanExpression(workingPossibleBooleanExpression.substring(0, i)),
-							booleanExpression(workingPossibleBooleanExpression.substring(i + 5)));
+			if (openParentheses == closedParentheses && i > 0) {
+				for (int operatorIndex = 0; operatorIndex < booleanOperator.length; operatorIndex++) {
+					if (workingPossibleBooleanExpression.substring(i).startsWith(booleanOperator[operatorIndex])) {
+						String leftOperand = workingPossibleBooleanExpression.substring(0, i);
+						String rightOperand = workingPossibleBooleanExpression
+								.substring(i + booleanOperator[operatorIndex].length());
+						if (externalParenthesesRemovable(rightOperand)||isPossibleBooleanVariable(rightOperand)) {
+							switch(booleanOperator[operatorIndex]) {
+								case " AND ":
+									return new AndOperator(booleanExpression(leftOperand), booleanExpression(rightOperand));
+								case " OR ":
+									return new OrOperator(booleanExpression(leftOperand), booleanExpression(rightOperand));
+								case " XOR ":
+									return new XorOperator(booleanExpression(leftOperand), booleanExpression(rightOperand));
+								default:
+									//remember to add the operator in che case if new operators are added
+									throw new NoGoodRequirementFormatException("missing operator in the switch-case");
+							}
+						} else {
+							throw new NoGoodRequirementFormatException("no good parentheses format");
+						}
+					}
 				}
 			}
 		}

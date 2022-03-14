@@ -18,6 +18,11 @@ public class Requirement {
 		return "WHEN " + prerequisite.booleanExpressionText() + " THEN " + effect;
 	}
 
+	@Override
+	public String toString() {
+		return requirementText();
+	}
+
 	public List<String> requirementTestCase() {
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < prerequisite.trueWhen().size(); i++) {

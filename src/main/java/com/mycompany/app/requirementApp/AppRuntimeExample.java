@@ -14,7 +14,10 @@ public class AppRuntimeExample {
 		System.out.println("Example requirements");
 		String[] requirements = {
 				"When x is equal to 1 then y should be equal to 1",
-				"When x is equal to 0 XOR x is equal to 2 then y should be different from 1"};
+				"When x is equal to 0 XOR x is equal to 2 then y should be different from 1",
+				"When A AND A AND A then B AND A",
+				"When ( (a cat is alive ) ) then A",
+				"When (( a cat is alive) AND (X)) AND x then A"};
 		for (int j = 0; j < requirements.length; j++) {
 			Requirement req = reqParser.createRequirement(requirements[j]);
 			List<String> testCase = req.requirementTestCase();
